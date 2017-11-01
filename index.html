@@ -1,0 +1,579 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="admin-themes-lab">
+    <meta name="author" content="themes-lab">
+    <link rel="shortcut icon" href="./assets/global/images/favicon.png" type="image/png">
+    <title>生产平台</title>
+    <link href="./assets/global/css/style.css" rel="stylesheet">
+    <link href="./assets/global/css/theme.css" rel="stylesheet">
+    <link href="./assets/global/css/ui.css" rel="stylesheet">
+    <link href="./assets/global/plugins/metrojs/metrojs.min.css" rel="stylesheet">
+    <link href="./assets/global/plugins/slick/slick.css" rel="stylesheet">
+    <link href="./assets/global/plugins/icheck/skins/all.css" rel="stylesheet">
+    <link href="./assets/global/plugins/bootstrap-tags-input/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <!-- <link href="./assets/global/plugins/rateit/rateit.css" rel="stylesheet" /> -->
+    <!-- <link href="./assets/global/plugins/colorpicker/spectrum.css" rel="stylesheet" /> -->
+    <link href="./assets/global/plugins/ion-slider/ion.rangeSlider.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/ion-slider/style.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/bootstrap-loading/lada.min.css" rel="stylesheet" />
+    <!-- <link href="./assets/global/plugins/summernote/summernote.css" rel="stylesheet" /> -->
+    <link href="./assets/global/plugins/cropper/cropper.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/magnific/magnific-popup.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/hover-effects/hover-effects.min.css" rel="stylesheet">
+    <link href="./assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/prettify/prettify.css" rel="stylesheet" />
+    <!-- <link href="./assets/global/plugins/jstree/dist/themes/default/style.css" rel="stylesheet" /> -->
+    <link href="./assets/global/bower_components/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+    <link href="./assets/global/bower_components/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/dropzone/dropzone.min.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/input-text/style.min.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/font-awesome-animation/font-awesome-animation.min.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/step-form-wizard/css/step-form-wizard.css" rel="stylesheet" />
+    <link href="./assets/global/plugins/step-form-wizard/plugins/parsley/parsley.css" rel="stylesheet" />
+    <!-- BEGIN ANGULARJS STYLE -->
+    <link href="./css/angular-theme.css" rel="stylesheet">
+    <!-- END ANGULARJS STYLE -->
+    <!-- BEGIN LAYOUT STYLE -->
+    <link href="./assets/admin/md-layout1/material-design/css/material.css" rel="stylesheet">
+    <link href="./assets/admin/md-layout1/css/layout.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+    <link href="./css/treeGrid.css" rel="stylesheet" />
+    <link href="./css/mis.css" rel="stylesheet" />
+    <!-- loading bar  -->
+    <link href='./css/loading-bar.css' rel='stylesheet' />
+    <!--select plugin-->
+    <link href="./assets/global/bower_components/ui-select/dist/select.css" rel="stylesheet">
+    <!-- END LAYOUT STYLE -->
+    <script src="./assets/global/plugins/modernizr/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+</head>
+
+<body ng-app="newApp" class="fixed-topbar fixed-sidebar theme-sdtl color-default" ng-controller="mainCtrl">
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- BEGIN PAGE SPINNER -->
+    <div ng-spinner-loader class="page-spinner-loader">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <!-- END PAGE SPINNER -->
+    <section>
+        <!-- BEGIN SIDEBAR -->
+        <div class="sidebar">
+            <div class="logopanel">
+                <h1>
+                    <a href="https://passport{{domaingooagoo}}/list.html">生产平台</a>
+                </h1>
+            </div>
+            <div class="sidebar-inner">
+                <!-- <div class="sidebar-top">
+                    <form action="search-result.html" method="post" class="searchform" id="search-results">
+                        <input type="text" class="form-control" name="keyword" placeholder="Search...">
+                    </form>
+                    <div class="userlogged clearfix">
+                        <i class="icon icons-faces-users-01"></i>
+                        <div class="user-details">
+                            <h4>admin</h4>
+                            <div class="dropdown user-login">
+                                <button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" data-delay="300">
+                                    <i class="online"></i><span>Available</span><i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="busy"></i><span>Busy</span></a></li>
+                                    <li><a href="#"><i class="turquoise"></i><span>Invisible</span></a></li>
+                                    <li><a href="#"><i class="away"></i><span>Away</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="menu-title">
+                    Navigation
+                    <div class="pull-right menu-settings">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" data-delay="300">
+                            <i class="icon-settings"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="reorder-menu" class="reorder-menu">Reorder menu</a></li>
+                            <li><a href="#" id="remove-menu" class="remove-menu">Remove elements</a></li>
+                            <li><a href="#" id="hide-top-sidebar" class="hide-top-sidebar">Hide user &amp; search</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+                <ul class="nav nav-sidebar">
+                    <!--<li ng-class="{ active  : isActive('/')}"><a href="#/"><i class="icon-home"></i><span>Dashboard</span></a></li>-->
+                    <!--<li class="nav-parent" ng-if='misMenu["10"]'>
+                        <a href=""><i class="icon-screen-desktop"></i><span>账户管理</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["1001"]' ng-class="{active  : isActive('/user-manage')}"><a href="#user-manage">系统账户</a></li>
+                            <li ng-if='misMenu["1001"]' ng-class="{active  : isActive('/com-manage')}"><a href="#com-manage">商户账户</a></li>
+                            <li ng-if='misMenu["1002"]' ng-class="{active  : isActive('/role-manage')}"><a href="#role-manage">角色管理</a></li>
+                            <li ng-if='misMenu["pro_1001"]' ng-class="{active  : isActive('/task')}"><a href="#task">分组管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-parent" ng-if='misMenu["11"]'>
+                        <a href=""><i class="icon icons-text-hierarchy-01"></i><span>组织管理</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["1101"]' ng-class="{active  : isActive('/organization')}"><a href="#organization">机构管理</a></li>
+                            <li ng-if='misMenu["1102"]' ng-class="{active  : isActive('/busi-manage')}"><a href="#busi-manage">商户管理</a></li>
+                            <li ng-if='misMenu["1103"]' ng-class="{active  : isActive('/shop-type')}"><a href="#shop-type">业态管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-parent" ng-if='misMenu["12"]'>
+                        <a href=""><i class="icon-settings"></i><span>设备管理</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["1201"]' ng-class="{active  : isActive('/device-info')}"><a href="#device-info">设备信息</a></li>
+                            <li ng-if='misMenu["1202"]' ng-class="{active  : isActive('/config-file')}"><a href="#config-file">配置文件</a></li>
+                            <li ng-if='misMenu["1203"]' ng-class="{active  : isActive('/config-command')}"><a href="#config-command">特殊指令管理</a></li>
+                            <li ng-if='misMenu["1206"]' ng-class="{active  : isActive('/remote-control')}"><a href="#remote-control">远程控制</a></li>
+                            <li ng-if='misMenu["1205"]' ng-class="{active  : isActive('/device-update')}"><a href="#device-update">设备手动升级</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-parent" ng-if='misMenu["71"]'>
+                        <a href=""><i class="icon-wallet"></i><span>彩单支付</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["7102"]' ng-class="{active  : isActive('/card-pay')}"><a href="#card-pay">刷卡支付</a></li>
+                            <li ng-if='misMenu["7101"]' ng-class="{active  : isActive('/purse-pay')}"><a href="#purse-pay">钱包支付</a></li>
+                            <li ng-if='misMenu["7103"]' ng-class="{active  : isActive('/cd-manage')}"><a href="#cd-manage">彩单配置</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-parent" ng-if='misMenu["18"]'>
+                        <a href=""><i class="icon-printer"></i><span>发票管理</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["1801"]' ng-class="{active  : isActive('/configuration')}"><a href="#configuration">发票配置</a></li>
+                            <li ng-if='misMenu["1802"]' ng-class="{active  : isActive('/inquiry')}"><a href="#inquiry">纸质发票查询</a></li>
+                            <li ng-if='misMenu["1803"]' ng-class="{active  : isActive('/electric')}"><a href="#electric">电子发票查询</a></li>
+                            <li ng-if='misMenu["1804"]' ng-class="{active  : isActive('/statistics')}"><a href="#statistics">发票统计</a></li>
+                            <li ng-if='misMenu["1805"]' ng-class="{active  : isActive('/callBack')}"><a href="#callBack">回调地址</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-parent" ng-if='misMenu["16"]'>
+                        <a href=""><i class="icon-wrench"></i><span>第三方服务</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["1601"]' ng-class="{active  : isActive('/system-maintain')}"><a href="#system-maintain">系统对接维护</a></li>
+                            &lt;!&ndash; <li ng-if='true' ng-class="{active  : isActive('/service-maintain')}"><a href="#service-maintain">商户服务号维护</a></li> &ndash;&gt;
+                        </ul>
+                    </li>
+                    <li class="nav-parent" ng-if='misMenu["17"]'>
+                        <a href=""><i class="icon-earphones-alt"></i><span>服务号管理</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["1701"]' ng-class="{active  : isActive('/shop-serve')}"><a href="#shop-serve">商户服务号</a></li>
+                            <li ng-if='misMenu["1702"]' ng-class="{active  : isActive('/serve-stencil')}"><a href="#serve-stencil">服务号模板</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-parent" ng-if='misMenu["14"]'>
+                        <a href=""><i class="icon-notebook"></i><span>业务查询</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["1401"]' ng-class="{active  : isActive('/systerminal-file')}"><a href="#systerminal-file">终端设备文件</a></li>
+                            <li ng-if='misMenu["1402"]' ng-class="{active  : isActive('/bill-record')}"><a href="#bill-record">账单信息</a></li>
+                            &lt;!&ndash; <li ng-if='misMenu["1404"]' ng-class="{active  : isActive('/previous-bill')}"><a href="#previous-bill">预结账单</a></li>
+                            <li ng-if='misMenu["1403"]' ng-class="{active  : isActive('/day-bill')}"><a href="#day-bill">日结账单</a></li> &ndash;&gt;
+                            <li ng-if='misMenu["1405"]' ng-class="{active  : isActive('/pay-detail')}"><a href="#pay-detail">支付明细</a></li>
+                        </ul>
+                    </li>-->
+                    <li class="nav-parent" ng-if='misMenu["pro_11"]'>
+                        <a href=""><i class="glyphicon glyphicon-compressed"></i><span>生产平台</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["pro_1101"]' ng-class="{active  : isActive('/prod-platform')}"><a href="#prod-platform">生产平台</a></li>
+                        </ul>
+                    </li>
+                    <!-- <li class="nav-parent" ng-if='misMenu["15"]'>
+                        <a href=""><i class="icon-clock"></i><span>操作记录</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["1501"]' ng-class="{ active  : isActive('/consume-log')}"><a href="#consume-log"> 消费行为记录</a></li>
+                            <li ng-if='misMenu["1502"]' ng-class="{ active  : isActive('/system-log')}"><a href="#system-log"> 系统操作记录</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+                <!-- SIDEBAR WIDGET FOLDERS -->
+                <!-- <div class="sidebar-widgets">
+                    <p class="menu-title widget-title">Folders <span class="pull-right"><a href="#" class="new-folder"> <i class="icon-plus"></i></a></span></p>
+                    <ul class="folders">
+                        <li>
+                            <a href="#"><i class="icon-doc c-primary"></i>My documents</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-picture"></i>My images</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-lock"></i>Secure data</a>
+                        </li>
+                        <li class="add-folder">
+                            <input type="text" placeholder="Folder's name..." class="form-control input-sm">
+                        </li>
+                    </ul>
+                </div> -->
+                <!-- <div class="sidebar-footer clearfix">
+                    <a class="pull-left footer-settings" data-target="#" data-rel="tooltip" data-placement="top" data-original-title="Settings">
+                        <i class="icon-settings"></i>
+                    </a>
+                    <a class="pull-left toggle_fullscreen" data-target="#" data-rel="tooltip" data-placement="top" data-original-title="Fullscreen">
+                        <i class="icon-size-fullscreen"></i>
+                    </a>
+                    <a class="pull-left" href="./../user-lockscreen.html" data-rel="tooltip" data-placement="top" data-original-title="Lockscreen">
+                        <i class="icon-lock"></i>
+                    </a>
+                    <a class="pull-left btn-effect" href="./../user-login-v1.html" data-modal="modal-1" data-rel="tooltip" data-placement="top" data-original-title="Logout">
+                        <i class="icon-power"></i>
+                    </a>
+                </div> -->
+            </div>
+        </div>
+        <!-- END SIDEBAR -->
+        <div class="main-content">
+            <!-- BEGIN TOPBAR -->
+            <div class="topbar">
+                <div class="header-left">
+                    <div class="topnav">
+                        <a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
+                        <!-- <ul class="nav nav-icons">
+                            <li><a href="#" class="toggle-sidebar-top"><span class="icon-user-following"></span></a></li>
+                            <li><a href="mailbox.html"><span class="octicon octicon-mail-read"></span></a></li>
+                            <li><a href="#"><span class="octicon octicon-flame"></span></a></li>
+                            <li><a href="builder-page.html"><span class="octicon octicon-rocket"></span></a></li>
+                        </ul> -->
+                    </div>
+                </div>
+                <div class="header-right">
+                    <ul class="header-menu nav navbar-nav">
+                        <li class="dropdown" id="user-help">
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <!-- <img src="./assets/global/images/avatars/user1.png" alt="user image"> -->
+                                <span class="username"><i class="glyphicon glyphicon-question-sign"></i>帮助</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- <li>
+                                    <a data-target="#"><i class="glyphicon glyphicon-heart"></i><span>帮助中心</span></a>
+                                </li>  -->
+                               <li>
+                                    <a href="http://open{{domaingooagoo}}/open/index.do"><i class="glyphicon glyphicon-th"></i><span>开放平台</span></a>
+                                </li>
+                                <li>
+                                    <a href="http://log{{domaingooagoo}}/index"><i class="glyphicon glyphicon-leaf"></i><span>系统日志</span></a>
+                                </li>
+                                <li>
+                                    <a href="#sys-lib" target="_blank"><i class="glyphicon glyphicon-list-alt"></i><span>数据字典</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="user-header">
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <!-- <img src="./assets/global/images/avatars/user1.png" alt="user image"> -->
+                                <span class="username">{{userName}}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- <li>
+                                    <a data-target="#"><i class="icon-user"></i><span>My Profile</span></a>
+                                </li> -->
+                                <!-- <li>
+                                    <a data-target="#"><i class="icon-calendar"></i><span>My Calendar</span></a>
+                                </li>-->
+                                <!-- <li>
+                                    <a href="https://passport{{domaingooagoo}}/misPlatform"><i class="icon-settings"></i><span>返回首页</span></a>
+                                </li> -->
+                                <li>
+                                    <a ng-click="changePsd()"><i class="glyphicon glyphicon-pencil"></i><span>修改密码</span></a>
+                                </li>
+                                <li>
+                                    <a ng-click="logoutSystem()"><i class="glyphicon glyphicon-off"></i><span>退出</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END USER DROPDOWN -->
+                        <!-- CHAT BAR ICON -->
+                        <!-- <li id="quickview-toggle"><a href="#"><i class="icon-bubbles"></i></a></li> -->
+                    </ul>
+                </div>
+                <div class="noticeContainer" style="position: relative;height: 50px;z-index: -1;">
+
+                </div>
+                <!-- header-right -->
+            </div>
+            <!-- END TOPBAR -->
+            <!-- BEGIN PAGE CONTENT -->
+            <div ng-view class="at-view-slide-in-left page-content syslib-container" ng-view-class=" page-wizard : /forms-wizard , page-thin : / , page-contact : /pages-contact,
+                    page-profil : /user-profile, page-app : /user-profile">
+            </div>
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END MAIN CONTENT -->
+        <!-- BEGIN BUILDER -->
+        <div class="builder hidden-sm hidden-xs" id="builder">
+            <a class="builder-toggle"><i class="icon-wrench"></i></a>
+            <div class="inner">
+                <div class="builder-container">
+                    <a href="#" class="btn btn-sm btn-default" id="reset-style">重置主题</a>
+                    <h4>布局选项</h4>
+                    <div class="layout-option">
+                        <span> 固定边栏</span>
+                        <label class="switch pull-right">
+                            <input data-layout="sidebar" id="switch-sidebar" type="checkbox" class="switch-input" checked>
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                    <div class="layout-option">
+                        <span> 鼠标经过边栏</span>
+                        <label class="switch pull-right">
+                            <input data-layout="sidebar-hover" id="switch-sidebar-hover" type="checkbox" class="switch-input">
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                    <div class="layout-option">
+                        <span> 鼠标经过菜单</span>
+                        <label class="switch pull-right">
+                            <input data-layout="submenu-hover" id="switch-submenu-hover" type="checkbox" class="switch-input">
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                    <div class="layout-option">
+                        <span>固定顶栏</span>
+                        <label class="switch pull-right">
+                            <input data-layout="topbar" id="switch-topbar" type="checkbox" class="switch-input" checked>
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                    <div class="layout-option">
+                        <span>盒布局</span>
+                        <label class="switch pull-right">
+                            <input data-layout="boxed" id="switch-boxed" type="checkbox" class="switch-input">
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                    <h4 class="border-top">颜色</h4>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="theme-color bg-dark" data-main="default" data-color="#2B2E33"></div>
+                            <div class="theme-color background-primary" data-main="primary" data-color="#319DB5"></div>
+                            <div class="theme-color bg-red" data-main="red" data-color="#C75757"></div>
+                            <div class="theme-color bg-green" data-main="green" data-color="#1DA079"></div>
+                            <div class="theme-color bg-orange" data-main="orange" data-color="#D28857"></div>
+                            <div class="theme-color bg-purple" data-main="purple" data-color="#B179D7"></div>
+                            <div class="theme-color bg-blue" data-main="blue" data-color="#4A89DC"></div>
+                        </div>
+                    </div>
+                    <h4 class="border-top">主题</h4>
+                    <div class="row row-sm">
+                        <div class="col-xs-6">
+                            <div class="theme clearfix sdtl" data-theme="sdtl">
+                                <div class="header theme-left"></div>
+                                <div class="header theme-right-light"></div>
+                                <div class="theme-sidebar-dark"></div>
+                                <div class="bg-light"></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="theme clearfix sltd" data-theme="sltd">
+                                <div class="header theme-left"></div>
+                                <div class="header theme-right-dark"></div>
+                                <div class="theme-sidebar-light"></div>
+                                <div class="bg-light"></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="theme clearfix sdtd" data-theme="sdtd">
+                                <div class="header theme-left"></div>
+                                <div class="header theme-right-dark"></div>
+                                <div class="theme-sidebar-dark"></div>
+                                <div class="bg-light"></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="theme clearfix sltl" data-theme="sltl">
+                                <div class="header theme-left"></div>
+                                <div class="header theme-right-light"></div>
+                                <div class="theme-sidebar-light"></div>
+                                <div class="bg-light"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="border-top">背景色</h4>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bg-color bg-clean" data-bg="clean" data-color="#F8F8F8"></div>
+                            <div class="bg-color bg-lighter" data-bg="lighter" data-color="#EFEFEF"></div>
+                            <div class="bg-color bg-light-default" data-bg="light-default" data-color="#E9E9E9"></div>
+                            <div class="bg-color bg-light-blue" data-bg="light-blue" data-color="#E2EBEF"></div>
+                            <div class="bg-color bg-light-purple" data-bg="light-purple" data-color="#E9ECF5"></div>
+                            <div class="bg-color bg-light-dark" data-bg="light-dark" data-color="#DCE1E4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END BUILDER -->
+    </section>
+    <!-- BEGIN PRELOADER -->
+    <div class="loader-overlay">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <!-- BEGIN ANGULARJS SCRIPTS -->
+    <script src="./assets/global/plugins/jquery/jquery-1.11.1.min.js"></script>
+    <script src="./plugins/angular-1.3.14/angular.min.js"></script>
+    <!-- <script src="./plugins/angular-1.4.9/i18n/angular-locale_zh.js"></script> -->
+    <!-- <script src="./plugins/angular/angular.min.js"></script> -->
+    <script src="./plugins/json3/lib/json3.min.js"></script>
+    <script src="./plugins/angular-resource/angular-resource.min.js"></script>
+    <script src="./plugins/angular-cookies/angular-cookies.min.js"></script>
+    <script src="./plugins/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="./plugins/angular-1.3.14/angular-animate.js"></script>
+    <!-- <script src="./plugins/angular-animate/angular-animate.js"></script> -->
+    <script src="./plugins/angular-touch/angular-touch.min.js"></script>
+    <script src="./plugins/angular-route/angular-route.min.js"></script>
+    <script src="./plugins/angular-upload/ng-file-upload-shim.min.js"></script>
+    <script src="./plugins/angular-upload/ng-file-upload.min.js"></script>
+    <script src="./plugins/angular-bootstrap/ui-bootstrap-tpls-1.1.2.min.js"></script>
+    <script src="./assets/global/bower_components/bootstrap-table/dist/bootstrap-table.js"></script>
+    <script src="./assets/global/bower_components/jstree/dist/jstree.js"></script>
+    <script src="./assets/global/bower_components/jstree/src/jstree.search.js"></script>
+    <script src="./directives/jsTree.directive.js"></script>
+    <script src="./js/loading-bar.js"></script>
+    <script src="app.js"></script>
+    <script src="./directives/ngViewClass.js"></script>
+    <script src="./directives/tree-grid-directive.js"></script>
+    <!-- END ANGULARJS SCRIPTS -->
+    <!-- build:js foot-plugins.min.js -->
+    <script src="./assets/global/bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="./assets/global/plugins/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="./assets/global/plugins/jquery-ui/jquery-ui-1.11.2.min.js"></script>
+    <script src="./assets/global/plugins/gsap/main-gsap.min.js"></script>
+    <script src="./assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./assets/global/plugins/jquery-cookies/jquery.cookies.min.js"></script>
+    <script src="./assets/global/plugins/jquery-block-ui/jquery.blockUI.min.js"></script>
+    <script src="./assets/global/plugins/bootbox/bootbox.min.js"></script>
+    <script src="./assets/global/plugins/mcustom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="./assets/global/plugins/bootstrap-dropdown/bootstrap-hover-dropdown.min.js"></script>
+    <script src="./assets/global/plugins/retina/retina.min.js"></script>
+    <!-- <script src="./assets/global/plugins/select2/select2.min.js"></script> -->
+    <script src="./assets/global/plugins/icheck/icheck.min.js"></script>
+    <script src="./assets/global/plugins/backstretch/backstretch.min.js"></script>
+    <script src="./assets/global/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="./assets/global/js/sidebar_hover.js"></script>
+    <!-- <script src="./assets/global/js/widgets/notes.js"></script>
+    <script src="./assets/global/js/pages/search.js"></script>
+    <script src="./assets/global/plugins/quickSearch/quicksearch.js"></script> -->
+    <script src="./assets/global/plugins/slick/slick.js"></script>
+    <!-- <script src="./assets/global/plugins/icheck/icheck.js"></script> -->
+    <script src="./assets/global/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script src="./assets/global/plugins/switchery/switchery.js"></script>
+    <!-- <script src="./assets/global/plugins/timepicker/jquery-ui-timepicker-addon.js"></script> -->
+    <script src="./assets/global/plugins/touchspin/jquery.bootstrap-touchspin.js"></script>
+    <script src="./assets/global/plugins/step-form-wizard/js/step-form-wizard.js"></script>
+    <script src="./assets/global/plugins/step-form-wizard/plugins/parsley/parsley.min.js"></script>
+    <script src="./assets/global/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="./assets/global/plugins/bootstrap-slider/bootstrap-slider.js"></script>
+    <script src="./assets/global/plugins/ion-slider/ion.rangeSlider.js"></script>
+    <script src="./assets/global/plugins/bootstrap/js/jasny-bootstrap.js"></script>
+    <script src="./assets/global/plugins/isotope/isotope.pkgd.min.js"></script>
+    <script src="./assets/global/plugins/magnific/jquery.magnific-popup.js"></script>
+    <script src="./assets/global/plugins/moment/moment.min.js"></script>
+    <!-- <script src="./assets/global/plugins/fullcalendar/fullcalendar.min.js"></script> -->
+    <script src="./assets/global/plugins/countup/countUp.js"></script>
+    <script src="./assets/global/plugins/bootstrap-loading/lada.min.js"></script>
+    <!-- <script src="./assets/global/plugins/jstree/jstree.js"></script> -->
+    <script src="./assets/global/plugins/typed/typed.js"></script>
+    <!-- <script src="./assets/global/plugins/summernote/summernote.js"></script> -->
+    <!-- <script src="./assets/global/plugins/prettify/prettify.js"></script> -->
+    <script src="./assets/global/plugins/dropzone/dropzone.min.js"></script>
+    <script src="./assets/global/plugins/idle-timeout/jquery.idletimeout.min.js"></script>
+    <script src="./assets/global/plugins/idle-timeout/jquery.idletimer.min.js"></script>
+    <!-- <script src="./assets/global/plugins/cropper/cropper.js"></script> -->
+    <script src="./assets/global/plugins/noty/jquery.noty.packaged.min.js"></script>
+    <!-- <script src="./assets/global/plugins/bootstrap-editable/js/bootstrap-editable.min.js"></script> -->
+    <!-- <script src="./assets/global/plugins/bootstrap-context-menu/bootstrap-contextmenu.min.js"></script> -->
+    <script src="./assets/global/plugins/multidatepicker/multidatespicker.min.js"></script>
+    <script src="./assets/global/js/widgets/todo_list.js"></script>
+    <script src="./assets/global/plugins/metrojs/metrojs.min.js"></script>
+    <script src="./assets/global/plugins/bootstrap-tags-input/bootstrap-tagsinput.js"></script>
+    <script src="./assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <!-- <script src="./assets/global/plugins/rateit/jquery.rateit.min.js"></script> -->
+    <script src="./assets/global/plugins/autosize/autosize.min.js"></script>
+    <script src="./assets/global/plugins/velocity/velocity.min.js"></script>
+    <!-- endbuild -->
+    <!-- BEGIN CUSTOM ANGULARJS SCRIPTS -->
+    <script src="./js/common.js"></script>
+    <script src="./js/builder.js"></script>
+    <script src="./js/application.js"></script>
+    <script src="./js/plugins.js"></script>
+    <script src="./js/quickview.js"></script>
+    <script src="mainCtrl.js"></script>
+    <script src="./app/prodPlatform/prodIndex/prod.js"></script>
+    <script src="./app/prodPlatform/contractIndex/contractIndex.js"></script>
+    <script src="./app/prodPlatform/task/task.js"></script>
+    <script src="./app/prodPlatform/projectDetails/projectDetails.js"></script>
+    <script src="./assets/global/bower_components/bootstrap-table/dist/extensions/angular/bootstrap-table-angular.js"></script>
+    <script src="./assets/global/bower_components/lrz/dist/lrz.bundle.js"></script>
+    <!-- END CUSTOM ANGULARJS SCRIPTS -->
+    <script src="./assets/admin/md-layout1/material-design/js/material.js"></script>
+    <!--select plugin-->
+    <script src="./assets/global/bower_components/ui-select/dist/select.js"></script>
+    <div class="shadow" style="display: none;">
+        <div class="pop">
+            <div class="content">
+                <div class="title text-left"></div>
+                <p>
+                    <span class="text" style="word-break:break-all;"></span>
+                </p>
+                <div class="text-right">
+                    <button type="button" class="btn btn-danger btn b-close">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="confirm" style="display: none;">
+        <div class="pop">
+            <div class="content">
+                <div class="title text-left"></div>
+                <div class="text" style="word-break:break-all; margin: 5px 8px 11px 8px; text-align: center;"></div>
+                <div class="text-right">
+                    <button type="button" class="btn btn-danger btn ok" key="0">确定</button>
+                    <button type="button" class="btn btn-danger btn b-close">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalBasic" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    <h4 class="modal-title" id="title"></h4>
+                </div>
+                <div class="modal-body" style="word-break:break-all;" id="content">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-embossed" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup" style="display: none;">
+        <div class="pop">
+            <div class="content">
+                <div class="title text-left"></div>
+                <p>
+                    <span class="text" style="word-break:break-all;"></span>
+                </p>
+                <div class="text-right">
+                    <button type="button" class="btn btn-danger btn-xs  ok">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+<style type="text/css">
+    .fixed-topbar .topbar {
+        left: 0;
+    }
+    .fixed-sidebar .sidebar {
+        display: none;
+    }
+    .main-content{
+        margin-left: 0;
+    }
+    .topbar .header-left .topnav .menutoggle{
+        display: none;
+    }
+    .theme-sdtl.color-default .sidebar{
+        display: none;
+    }
+    .bootstrap-table .table{
+        width: 100% !important;
+    }
+    /*input number 去掉上下滚轮*/
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    form .file-button{
+        right: -70px;
+    }
+    .modal-content .modal-footer{
+        padding-top: 10px;
+    }
+</style>
+<div class="header">
+    <h2>{{params.page.name}}</h2>
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li class="active">合同管理</li>
+
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 portlets">
+        <div class="panel">
+            <div class="panel-content">
+                <form name="roleSearchForm" class="form-horizontal" novalidate>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <div class="col-sm-4 control-label">合同类型</div>
+                            <div class="col-sm-4">
+                                <select class="form-control" ng-model="params.page.contractType">
+                                    <option value="">全部</option>
+                                    <option value="1">整体合同</option>
+                                    <option value="2">分期合同</option>
+                                    <!--<option value="3">补充合同</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="col-sm-4 control-label">合同编号</div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" placeholder="请输入合同编号" ng-model="params.page.contractNum">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-group text-right pull-right">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#contract" ng-click="add()"><i class="fa fa-plus"></i>新增</button>
+                        <button type="button" class="btn btn-danger" data-style="zoom-in" ng-disabled="searchS" ng-click="search()"><i class="glyphicon glyphicon-search"></i>查询</button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-content pagination2 table-responsive">
+                <table id="contractTb" bs-table-control="contractCtrl" bs-table-params="contratTableConfig"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">&copy;</span> {{copyright}} </span>
+            <span>gooagoo.com</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+        </p>
+    </div>
+</div>
+<!-- BEGIN MODALS -->
+<div class="modal fade" id="contract" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal  pos-rel" name="prodForm" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    <h4 ng-hide="isSee" class="modal-title"><strong>{{addOrEdit == 'add' ? '新增合同' : '编辑合同'}}</strong></h4>
+                    <h4 ng-show="isSee" class="modal-title"><strong>查看合同</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-content rol-tabs-content  p-t-30">
+                        <div role="tabpanel" class="tab-pane active">
+                            <div class="form-group row">
+                                <div class="col-xs-2 control-label">合同类型</div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" ng-disabled="isSee" ng-change="params.modal.selected.periods = ''" ng-model="params.modal.selected.contractType">
+                                        <option value="1">整体合同</option>
+                                        <option value="2">分期合同</option>
+                                        <!--<option value="3">补充合同</option>-->
+                                    </select>
+                                </div>
+                                <div ng-if="params.modal.selected.contractType == 2">
+                                    <div class="col-xs-2 control-label">合同期别</div>
+                                    <div class="col-xs-2">
+                                        <input class="form-control" type="text" ng-disabled="isSee" ng-model="params.modal.selected.periods" ng-keyup="testNum()" placeholder="合同期别数，例如1" >
+                                    </div>
+                                    <div class="col-xs-1" style="padding-top: 10px">
+                                        期
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-xs-2 control-label"><span class="font_red">*</span>合同编号</div>
+                                <div class="col-xs-4">
+                                    <input type="text" class="form-control" ng-disabled="addOrEdit == 'edit' || isSee" maxlength="50" placeholder="合同编号，支持50个字符" ng-model="params.modal.selected.contractId">
+                                    <div class="font_red font_sizes" ng-show="params.modal.selected.contractId.length == 0">合同编号不能为空</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-xs-2 control-label">
+                                    合同上传
+                                </div>
+                                <div class="file col-xs-8">
+                                    <div class="option-group">
+                                        <div ng-hide="isSee" class="file-button btn-primary pointer" ngf-select ng-model="fileShopEntity" ng-change="importUpdate()" onchange="document.getElementById('pathShopEntity').value = this.value;document.getElementById('importEntityError').innerHTML='';"> 浏览</div>
+                                        <div ng-show="isSee && isDown" class="file-button btn-primary pointer"><a href="{{contractUrl}}" download="{{contractUrl}}" style="color: #fff">下载</a></div>
+                                        <input type="text" class="form-control" id="pathShopEntity" ng-model="params.modal.selected.contractName" placeholder="未选择文件" readonly="">
+                                        <input type="hidden" ng-model="params.modal.selected.contractUrl">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="word-break:break-all;max-height:100px;overflow:auto;" id="importEntityError" ng-if="!importEntitySuccess">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-embossed" data-dismiss="modal">取消</button>
+                    <button type="button" ng-hide="isSee" class="btn btn-default" ng-disabled="params.modal.selected.contractId.length == 0" ng-click="save()">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

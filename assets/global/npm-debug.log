@@ -1,0 +1,145 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'angularjs',
+1 verbose cli   '1.3.14' ]
+2 info using npm@2.7.4
+3 info using node@v0.12.2
+4 verbose node symlink /usr/local/bin/node
+5 warn package.json gulp-minify-css@1.2.3 No repository field.
+6 warn package.json gulp-minify-html@1.0.5 No repository field.
+7 silly cache add args [ 'angularjs', null ]
+8 verbose cache add spec angularjs
+9 silly cache add args [ '1.3.14', null ]
+10 verbose cache add spec 1.3.14
+11 silly cache add parsed spec { raw: 'angularjs',
+11 silly cache add   scope: null,
+11 silly cache add   name: 'angularjs',
+11 silly cache add   rawSpec: '',
+11 silly cache add   spec: '*',
+11 silly cache add   type: 'range' }
+12 verbose addNamed angularjs@*
+13 silly addNamed semver.valid null
+14 silly addNamed semver.validRange *
+15 silly addNameRange { name: 'angularjs', range: '*', hasData: false }
+16 silly mapToRegistry name angularjs
+17 silly mapToRegistry using default registry
+18 silly mapToRegistry registry https://registry.npmjs.org/
+19 silly mapToRegistry uri https://registry.npmjs.org/angularjs
+20 verbose addNameRange registry:https://registry.npmjs.org/angularjs not in flight; fetching
+21 silly cache add parsed spec { raw: '1.3.14',
+21 silly cache add   scope: null,
+21 silly cache add   name: '1.3.14',
+21 silly cache add   rawSpec: '',
+21 silly cache add   spec: '*',
+21 silly cache add   type: 'range' }
+22 verbose addNamed 1.3.14@*
+23 silly addNamed semver.valid null
+24 silly addNamed semver.validRange *
+25 silly addNameRange { name: '1.3.14', range: '*', hasData: false }
+26 silly mapToRegistry name 1.3.14
+27 silly mapToRegistry using default registry
+28 silly mapToRegistry registry https://registry.npmjs.org/
+29 silly mapToRegistry uri https://registry.npmjs.org/1.3.14
+30 verbose addNameRange registry:https://registry.npmjs.org/1.3.14 not in flight; fetching
+31 verbose request uri https://registry.npmjs.org/1.3.14
+32 verbose request no auth needed
+33 info attempt registry request try #1 at 10:45:32
+34 verbose request id 65ba5924d97e1bff
+35 http request GET https://registry.npmjs.org/1.3.14
+36 verbose request uri https://registry.npmjs.org/angularjs
+37 verbose request no auth needed
+38 info attempt registry request try #1 at 10:45:32
+39 verbose etag "DA6I6I6ODII1GLDRMQ0ARHNLK"
+40 http request GET https://registry.npmjs.org/angularjs
+41 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND registry.npmjs.org
+42 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND registry.npmjs.org
+43 info attempt registry request try #2 at 10:46:13
+44 http request GET https://registry.npmjs.org/1.3.14
+45 info attempt registry request try #2 at 10:46:13
+46 verbose etag "DA6I6I6ODII1GLDRMQ0ARHNLK"
+47 http request GET https://registry.npmjs.org/angularjs
+48 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND registry.npmjs.org
+49 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND registry.npmjs.org
+50 info attempt registry request try #3 at 10:47:43
+51 verbose etag "DA6I6I6ODII1GLDRMQ0ARHNLK"
+52 http request GET https://registry.npmjs.org/angularjs
+53 info attempt registry request try #3 at 10:47:43
+54 http request GET https://registry.npmjs.org/1.3.14
+55 http 404 https://registry.npmjs.org/1.3.14
+56 verbose headers { 'content-type': 'application/json',
+56 verbose headers   'cache-control': 'max-age=0',
+56 verbose headers   'content-length': '2',
+56 verbose headers   'accept-ranges': 'bytes',
+56 verbose headers   date: 'Mon, 15 Feb 2016 02:47:46 GMT',
+56 verbose headers   via: '1.1 varnish',
+56 verbose headers   age: '0',
+56 verbose headers   connection: 'keep-alive',
+56 verbose headers   'x-served-by': 'cache-sjc3650-SJC',
+56 verbose headers   'x-cache': 'MISS',
+56 verbose headers   'x-cache-hits': '0',
+56 verbose headers   'x-timer': 'S1455504466.921362,VS0,VE45' }
+57 silly get cb [ 404,
+57 silly get   { 'content-type': 'application/json',
+57 silly get     'cache-control': 'max-age=0',
+57 silly get     'content-length': '2',
+57 silly get     'accept-ranges': 'bytes',
+57 silly get     date: 'Mon, 15 Feb 2016 02:47:46 GMT',
+57 silly get     via: '1.1 varnish',
+57 silly get     age: '0',
+57 silly get     connection: 'keep-alive',
+57 silly get     'x-served-by': 'cache-sjc3650-SJC',
+57 silly get     'x-cache': 'MISS',
+57 silly get     'x-cache-hits': '0',
+57 silly get     'x-timer': 'S1455504466.921362,VS0,VE45' } ]
+58 http 304 https://registry.npmjs.org/angularjs
+59 silly get cb [ 304,
+59 silly get   { date: 'Mon, 15 Feb 2016 02:47:47 GMT',
+59 silly get     via: '1.1 varnish',
+59 silly get     'cache-control': 'max-age=300',
+59 silly get     etag: '"DA6I6I6ODII1GLDRMQ0ARHNLK"',
+59 silly get     age: '0',
+59 silly get     connection: 'keep-alive',
+59 silly get     'x-served-by': 'cache-sjc3627-SJC',
+59 silly get     'x-cache': 'HIT',
+59 silly get     'x-cache-hits': '1',
+59 silly get     'x-timer': 'S1455504467.387039,VS0,VE354',
+59 silly get     vary: 'Accept' } ]
+60 verbose etag https://registry.npmjs.org/angularjs from cache
+61 verbose get saving angularjs to /Users/duke/.npm/registry.npmjs.org/angularjs/.cache.json
+62 silly addNameRange number 2 { name: 'angularjs', range: '*', hasData: true }
+63 silly addNameRange versions [ 'angularjs', [ '0.0.1' ] ]
+64 verbose addNamed angularjs@0.0.1
+65 silly addNamed semver.valid 0.0.1
+66 silly addNamed semver.validRange 0.0.1
+67 silly cache afterAdd angularjs@0.0.1
+68 verbose afterAdd /Users/duke/.npm/angularjs/0.0.1/package/package.json not in flight; writing
+69 verbose afterAdd /Users/duke/.npm/angularjs/0.0.1/package/package.json written
+70 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/1.3.14
+70 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:239:14)
+70 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+70 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:344:22)
+70 verbose stack     at Request.emit (events.js:110:17)
+70 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1239:14)
+70 verbose stack     at Request.emit (events.js:129:20)
+70 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1187:12)
+70 verbose stack     at IncomingMessage.emit (events.js:129:20)
+70 verbose stack     at _stream_readable.js:908:16
+70 verbose stack     at process._tickCallback (node.js:355:11)
+71 verbose statusCode 404
+72 verbose pkgid 1.3.14
+73 verbose cwd /Users/duke/www/web-starter-kit-0.6.0/angularjs/assets/global
+74 error Darwin 15.3.0
+75 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "angularjs" "1.3.14"
+76 error node v0.12.2
+77 error npm  v2.7.4
+78 error code E404
+79 error 404 Registry returned 404 for GET on https://registry.npmjs.org/1.3.14
+79 error 404
+79 error 404 '1.3.14' is not in the npm registry.
+79 error 404 You should bug the author to publish it (or use the name yourself!)
+79 error 404
+79 error 404 Note that you can also install from a
+79 error 404 tarball, folder, http url, or git url.
+80 verbose exit [ 1, true ]

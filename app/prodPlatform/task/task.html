@@ -1,0 +1,175 @@
+<style type="text/css">
+    .fixed-topbar .topbar {
+        left: 0;
+    }
+    .fixed-sidebar .sidebar {
+        display: none;
+    }
+    .main-content{
+        margin-left: 0;
+    }
+    .topbar .header-left .topnav .menutoggle{
+        display: none;
+    }
+    .theme-sdtl.color-default .sidebar{
+        display: none;
+    }
+    .member-select-container,.memberName div,.memberMb div{
+        height: 25px;
+    }
+    /*
+        多选输入框
+    */
+    .members .select-container{
+        position: relative;
+    }
+    .members .select-data{
+        width: 100%;
+        max-height: 200px;
+        position: absolute;
+        left: 0;
+        top: 34px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    .members .select-data span{
+        display: block;
+        width: 100%;
+        padding: 7px 10px;
+        line-height: 1.5em;
+    }
+    .members .select-data span:hover{
+        background-color: #0097a7;
+        color: #fff;
+    }
+    .members .select-result{
+        max-height: 100px;
+        overflow-y: auto;
+    }
+    .members .select-result>div{
+        padding: 7px 10px;
+    }
+    /*表格*/
+    .task-table .table{
+        width: 100% !important;
+    }
+</style>
+<div class="header">
+    <h2>分组管理</h2>
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li class="active">分组管理</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 portlets">
+        <div class="panel">
+            <div class="panel-content">
+                <form name="roleSearchForm" class="form-horizontal" novalidate>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <div class="col-sm-4 control-label">组别名称</div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="params.page.name" placeholder="请输入组名">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-group text-right pull-right">
+                        <button type="button" class="btn btn-danger ng-scope" data-toggle="modal" data-target="#groupModal" ng-click="toolbarEvent.add()"><i class="fa fa-plus"></i> 新增</button>
+                        <button type="button" class="btn btn-danger" data-style="zoom-in" ng-disabled="searchS" ng-click="toolbarEvent.search()"><i class="glyphicon glyphicon-search"></i>查询</button>
+                        <button type="button" class="btn btn-danger" data-style="zoom-in" ng-disabled="resetS" ng-click="toolbarEvent.resetSearch()"><i class="mdi-action-settings"></i> 重置</button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-content pagination2 table-responsive task-table">
+                <table id="taskTable" bs-table-control="taskControl" bs-table-params="taskTableConfig"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">&copy;</span> {{copyright}} </span>
+            <span>gooagoo.com</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+        </p>
+    </div>
+</div>
+<!-- BEGIN MODALS -->
+<div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form name="taskForm" novalidate class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    <h4 class="modal-title"><strong>{{addOrEdit == 'add' ? '新增' : '编辑'}}</strong> </h4>
+                </div>
+                <div class="modal-body clearfix">
+                    <div class="form-group col-md-12">
+                        <div class="col-sm-2 control-label"><span class="font_red">*</span>组名</div>
+                        <div class="col-sm-10">
+                            <input type="text" name="memberName" required class="form-control" ng-model="params.modal.name" maxlength="10" placeholder="组名，支持10个字符">
+                            <div class="font_red font_sizes" ng-show="taskForm.memberName.$invalid">组名不能为空</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 members">
+                        <div class="col-sm-2 control-label"><span class="font_red">*</span>成员</div>
+                        <div class="col-sm-10">
+                            <div class="select-container">
+                                <div class="select-input">
+                                    <input type="text" class="form-control select-member-input" placeholder="请输入关键字,按enter键搜索" ng-model="params.modalData.member" ng-focus="getMembers($event,'focus')" ng-keyup="getMembers($event)">
+                                </div>
+                                <div class="select-data">
+                                    <span ng-repeat="m in params.modalData.membersData" ng-click="selectMember(m)">
+                                        {{ m.id }}
+                                    </span>
+                                </div>
+                                <div class="select-result clearfix">
+                                    <div class="pull-left" ng-repeat="m in params.modal.members">
+                                        <span>{{m.id}}</span>
+                                        <i class="glyphicon glyphicon-remove" ng-click="removeMember(m)"></i>
+                                    </div>
+                                </div>
+                                <div class="font_red font_sizes" ng-show="params.modal.members.length == 0">成员不能为空</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-sm-2 control-label"><span class="font_red">*</span>功能</div>
+                        <div class="col-sm-10">
+                            <div class="checkbox checkbox-primary p-t-0  f-left" style="max-height: 100px;overflow-y: auto;">
+                                <label class="p-l-20 ng-binding ng-scope" ng-repeat="d in params.modalData.dutiesData">
+                                    <input type="checkbox" ng-checked="ischeckDuty(d.id)" ng-click="selectDuty($event,d.id)" value="{{d.id}}" class="md-checkbox">
+                                    <span class="checkbox-material">
+                                        <span class="check"></span>
+                                    </span>
+                                    {{ d.name }}
+                                </label>
+                            </div>
+                            <div class="font_red font_sizes" ng-show="params.modal.duties.length == 0">请选择功能角色</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary " data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-default" ng-disabled="taskForm.memberName.$invalid || params.modal.members.length == 0 || params.modal.duties.length == 0" ng-click="save(addOrEdit)">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.select-data').hide();
+    $('#groupModal').click(function (ev) {
+        if (!$(ev.target).hasClass('select-member-input')) {
+            $('.select-data').hide();
+        }
+    });
+</script>

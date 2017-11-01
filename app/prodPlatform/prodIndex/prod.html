@@ -1,0 +1,374 @@
+<style type="text/css">
+    .fixed-topbar .topbar {
+        left: 0;
+    }
+    .fixed-sidebar .sidebar {
+        display: none;
+    }
+    .main-content{
+        margin-left: 0;
+    }
+    .topbar .header-left .topnav .menutoggle{
+        display: none;
+    }
+    .theme-sdtl.color-default .sidebar{
+        display: none;
+    }
+    .member-select-container,.memberName div,.memberMb div{
+        height: 25px;
+    }
+
+    /*匹配的机构高亮*/
+    .hightOrg{
+        color: rgb(49, 157, 181);
+        font-weight: 900;
+    }
+
+    .projectDetails-h .info-count{
+        width: 100%;
+    }
+    .projectDetails-h .info-count span{
+        width: 10%;
+    }
+
+    /*非mall时，tab置灰*/
+    #prodrightRoleTab .tabDisbaled {
+        background-color: #C0C0C0;
+        opacity: 0.5;
+        color: #000;
+    }
+</style>
+<div class="header clearfix projectDetails-h">
+    <div class="pull-left">
+        <h2>生产平台</h2>
+    </div>
+    <div class="pull-right info-count">
+        <div style="margin-top: 8px;">
+            <span>集团总数:{{params.page.gatherInfo.groupCount}}</span>
+            <span>MALL总数:{{params.page.gatherInfo.mallCount}}</span>
+            <span>商户总数:{{params.page.gatherInfo.shopEntityCount}}</span>
+            <span>设备总数:{{params.page.gatherInfo.allDeviceCount}}</span>
+            <span>软截总数:{{params.page.gatherInfo.softDeviceCount}}</span>
+            <span>硬采总数:{{params.page.gatherInfo.hardDeviceCount}}</span>
+            <span>转发器总数:{{params.page.gatherInfo.transDeviceCount}}</span>
+        </div>
+    </div>
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li class="active">生产平台</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 portlets">
+        <div class="panel">
+            <div class="panel-content">
+                <form name="instSearchForm" novalidate class="form-horizontal">
+                    <div class="row m-t-10">
+                        <div class="form-group col-md-4">
+                            <div class="col-sm-4 control-label">机构名称</div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" placeholder="请输入机构名称" ng-model="params.page.orgName" uib-typeahead="o.name for o in params.page.orgList | filter:{name:$viewValue}" typeahead-on-select="params.page.orgName = $item.name.trim();" typeahead-show-hint="true" typeahead-select-on-blur="false" typeahead-min-length="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-group text-right pull-right">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addInst" ng-if="authority['14']" ng-click="addProject()"><i class="fa fa-plus"></i> 新增项目</button>
+                        <button type="button" class="btn btn-danger" ng-if="authority['20']" ng-click="toTask()"><i class="fa fa-tasks"></i>分组管理</button>
+                        <button type="button" class="btn btn-danger" data-style="zoom-in" ng-disabled="searchS" ng-if="authority['2']" ng-click="tablePage()"><i class="fa fa-search"></i> 查询</button>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-content pagination2 table-responsive">
+                <table class="table">
+                    <tr>
+                        <th style="width: 34%">机构名称</th>
+                        <th style="width: 7%">商户数</th>
+                        <th style="width: 7%">未安装</th>
+                        <th style="width: 7%">已安装</th>
+                        <th style="width: 7%">已配置</th>
+                        <!--<th style="width: 7%">已核对</th>-->
+                        <th style="width: 7%">已交付</th>
+                        <th style="width: 7%">已停用</th>
+                        <th style="width: 7%">已撤店</th>
+                        <th style="width: 7%">完成度</th>
+                        <th style="width: 10%;text-align: left;">操作</th>
+                    </tr>
+                    <tr ng-repeat="org in params.page.treeOrg" ng-class="{hightOrg: (org.name.indexOf(params.page.orgName) > -1) && (params.page.orgName != '')}">
+                        <td style="width: 34%">{{org.name}}</td>
+                        <td style="width: 7%">{{org.total}}</td>
+                        <td style="width: 7%">{{org.preInstall}}</td>
+                        <td style="width: 7%">{{org.installed}}</td>
+                        <td style="width: 7%">{{org.configured}}</td>
+                        <!--<td style="width: 7%">{{org.checked}}</td>-->
+                        <td style="width: 7%">{{org.delivered}}</td>
+                        <td style="width: 7%">{{org.stoped}}</td>
+                        <td style="width: 7%">{{org.closed}}</td>
+                        <td style="width: 7%">{{org.allProcess + '%'}}</td>
+                        <td style="width: 10%">
+                            <div ng-if="org.type == '200'">
+                                <a class="glyphicon glyphicon glyphicon-file pointer" title="合同" ng-if="authority['15']" href="#contract/{{org.id}}/{{org.name.trim()}}" target="_blank"></a>
+                                <a class="glyphicon glyphicon-pencil pointer" title="编辑" ng-if="authority['16']" data-toggle="modal" data-target="#addInst" ng-click="toEdit(org.id)"></a>
+                                <a class="glyphicon glyphicon-option-horizontal pointer" title="详情" ng-if="authority['1']" href="#projectDetails/{{org.id}}/{{org.name.trim()}}" target="_blank"></a>
+                                <a class="glyphicon glyphicon-hourglass pointer" title="分任务" ng-if="authority['17']" data-toggle="modal" data-target="#roleTask" ng-click="roleTask(org.id)"></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-if="params.page.treeOrg.length == 0">
+                        <td colspan="11" style="text-align: center;">
+                            没有找到匹配记录
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">&copy;</span> {{copyright}} </span>
+            <span>gooagoo.com</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+        </p>
+    </div>
+</div>
+<!-- 新增项目 MODALS -->
+<div class="modal fade" id="addInst" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form name="instInfoForm" novalidate class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    <h4 class="modal-title"><strong>{{addOrEdit == 'add' ? '新增项目' : '编辑项目'}}</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs nav-justified" id ="pop-nav">
+                        <li role="presentation" id="prodTabFirst" class="active"><a href="#PordleftRole" id="ProdTabOne" aria-controls="home" role="tab" data-toggle="tab">基础信息</a></li>
+                        <li role="presentation" id="prodrightRoleTab"><a href="#ProdrightRole" ng-class="{tabDisbaled: params.modal.project.selected.type != 200}" aria-controls="profile" role="tab" data-toggle="tab">二维码配置</a></li>
+                    </ul>
+                    <div class="tab-content rol-tabs-content" style="padding-top: 50px;">
+                        <div role="tabpanel" class="tab-pane active" id="PordleftRole">
+                            <div class="form-group row">
+                                <div class="col-xs-2 control-label"> <span class="font_red">*</span>机构属性</div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="orgType" data-style="white" ng-model="params.modal.project.selected.type" ng-disabled="isChangeOrgType" ng-change="changeOrg()" ng-options="prop.code as prop.name for prop in params.modal.project.data.orgPropertys">
+                                    </select>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control" placeholder="机构名称 支持30位字符" maxlength="30" ng-model="params.modal.project.selected.name">
+                                    <div class="font_red font_sizes" ng-show="params.modal.project.selected.name.length == 0">请输入机构名称</div>
+                                </div>
+
+                            </div>
+                            <div class="form-group row" ng-hide="orgHide">
+                                <div class="col-xs-2  control-label"> <span class="font_red">*</span>上级机构</div>
+                                <div class="col-xs-9">
+                                    <input type="text" ng-model="params.modal.project.selected.parentName" placeholder="请选择机构" uib-typeahead="o.name for o in params.modal.project.data.treeOrg | filter:{name:$viewValue}" class="form-control" typeahead-on-select="params.modal.project.selected.parentId = $item.id;params.modal.project.selected.parentName = $item.name.trim();" ng-change="isDel()" typeahead-show-hint="true" typeahead-select-on-blur="false" typeahead-min-length="0">
+                                    <div class="font_red font_sizes" ng-show="params.modal.project.selected.parentId == ''">请选择上级机构</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12" style="padding-left: 7px;" ng-hide="otherHide">
+
+                                <div class="col-xs-2 control-label">所在地区</div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" data-style="white" ng-model="params.modal.project.selected.province" ng-change="getCityCounty('city')" ng-options="province.id as province.name for province in params.modal.project.data.provinceList">
+                                        <option value="">请选择省</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" data-style="white" ng-model="params.modal.project.selected.city" ng-change="getCityCounty('county')" ng-options="c.id as c.name for c in params.modal.project.data.city">
+                                        <option value="">请选择市</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" data-style="white" ng-model="params.modal.project.selected.county" ng-options="cy.id as cy.name for cy in params.modal.project.data.county">
+                                        <option value="">请选择区</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-hide="otherHide">
+                                <div class="col-xs-2 control-label">区域划分</div>
+                                <div class="col-xs-9">
+                                    <input type="text" class="form-control" placeholder="输入区域名称，以逗号隔开，例如东区，西区" style="padding-top: 12px;" ng-model="params.modal.project.selected.areaDivision">
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-hide="otherHide">
+                                <div class="col-xs-2 control-label"><span class="font_red">*</span>楼层划分</div>
+                                <div class="col-xs-9">
+                                    <input type="text" class="form-control" placeholder="输入楼层名称，以逗号隔开，例如1F，2F" style="padding-top: 12px;" ng-model="params.modal.project.selected.floorDivision">
+                                    <div class="font_red font_sizes" ng-show="params.modal.project.selected.floorDivision.length == 0">请输入楼层</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12" style="padding-left: 8px;" ng-hide="otherHide">
+                                <div class="col-xs-6">
+                                    <div class="col-xs-4 control-label">项目管理员</div>
+                                    <div class="col-xs-8">
+                                        <input type="text" class="form-control" maxlength="30" ng-model="params.modal.project.selected.projectManager" placeholder="项目管理员，支持30个字符" style="padding-top: 12px;">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6" ng-hide="otherHide">
+                                    <div class="col-xs-4 control-label">项目类型</div>
+                                    <div class="col-xs-8">
+                                        <select class="form-control" ng-model="params.modal.project.selected.implementTag" ng-options="im.code as im.name for im in params.modal.project.data.implementTag">
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="ProdrightRole">
+                            <div class="row form-group">
+                                <div class="col-xs-2 control-label">二维码上方文字</div>
+                                <div class="col-xs-8">
+                                    <input class="form-control" maxlength="100" placeholder="小票追打文案，位于二维码上方，支持0-100个字符" data-ng-trim="false" ng-model="params.modal.project.selected.billhint"></input>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2 control-label">追打二维码</div>
+                                <!--sy-->
+                                <div class="col-xs-3">
+                                    <div class="img-lg pos-rel">
+                                        <div class="center-img">
+                                            <img src="{{params.modal.project.selected.qrCodeLogoUrl}}" ng-show="params.modal.project.selected.qrCodeLogoUrl" id="weiImg"></img>
+                                        </div>
+                                        <img data-src="" src="../../../assets/global/images/goag.jpg" class="img-responsive pointer" alt="picture" style="width:120px;height:120px; ">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 pointer">
+                                    <div style="border:1px solid #ddd;margin-right:15px;" class="img-md">
+                                        <div class="img-md" style="position: relative;">
+                                            <img src="{{params.modal.project.selected.qrCodeLogoUrl}}" ng-show="params.modal.project.selected.qrCodeLogoUrl" id="weiImgBig"></img>
+                                            <i class="glyphicon glyphicon-remove" style="position: absolute;top: 0;right: 0;z-index: 2" ng-click="removeImg('qrCodeLogoUrl')"></i>
+                                        </div>
+                                    </div>
+                                    <div class="p-t-10" style="clear:both;font-size:12px">
+                                        <button class="upload" ngf-select ng-model="params.modal.project.selected.fileImage" ng-change="imgUpload('qrCodeLogoUrl')"  style="width:80px;">嵌入logo</button>
+                                        <p>BMP24位位图，正方形，大小不超过 200*200</p>
+                                    </div>
+                                </div>
+                                <!--sy-->
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-2 control-label">扫码链接</div>
+                                <div class="col-xs-7">
+                                    <input type="text" class="form-control"  placeholder="输入URL地址,扫追打二维码会打开此URL" ng-model="params.modal.project.selected.scanUrl" name="shopUrl"></input>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-2 control-label">追打图片</div>
+                                <div class="col-xs-6 pointer">
+                                    <div style="border:1px solid #ddd; margin-right:15px;">
+                                        <div class="box-limit" style="position: relative;">
+                                            <img src="{{params.modal.project.selected.marketingImage}}" ng-show="params.modal.project.selected.marketingImage" id="markImg"></img>
+                                            <i class="glyphicon glyphicon-remove" style="position: absolute;top: 0;right: 0;z-index: 2" ng-click="removeImg('marketingImage')"></i>
+                                        </div>
+                                        <div class="picload" ngf-select ng-model="params.modal.project.selected.fileImage" ng-change="imgUpload('marketingImage')">上传</div>
+                                    </div>
+                                    <span>支持jpg、png、bmp格式，大小不超过500k</span>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-2 control-label">追打固定文字</div>
+                                <div class="col-xs-8">
+                                    <input class="form-control" maxlength="100" placeholder="小票追打文案，位于二维码下方，支持0-100个字符" data-ng-trim="false" ng-model="params.modal.project.selected.marketingCopywriter"></input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---->
+                <div class="modal-footer" style="clear:both">
+                    <button type="button" class="btn btn-primary btn-embossed" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="(!orgHide && (params.modal.project.selected.name.length == 0 || params.modal.project.selected.parentId == '' || params.modal.project.selected.floorDivision.length == 0)) || (orgHide && params.modal.project.selected.name.length == 0)" ng-click="projectSave()">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 分任务modal -->
+<div class="modal fade" id="roleTask" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form name="instInfoForm" novalidate class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    <h4 class="modal-title"><strong>任务分配</strong></h4>
+                </div>
+                <div class="modal-body" style="max-height: 400px;overflow-y: scroll;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">组名</th>
+                                <th style="width: 45%;">账号</th>
+                                <th style="width: 20%;">姓名</th>
+                                <th style="width: 20%;">电话</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="memberGroup in params.modal.task.memberArr">
+                                <td class="nameTd" style="width: 15%;">
+                                    <span class="f-left">{{memberGroup.name}}</span>
+                                    <div class="checkbox checkbox-primary f-left p-l-10">
+                                        <label class="ng-binding ng-scope">
+                                            <input type="checkbox" class="md-checkbox checkall" ng-checked="editCheckedAll(memberGroup.memebers)" ng-click="checkAllMember($event,memberGroup.memebers)">
+                                            <span class="checkbox-material">
+                                                <span class="check">
+
+                                                </span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="memberTd" style="width: 45%;">
+                                    <div class="checkbox checkbox-primary">
+                                        <div class="member-select-container" ng-repeat="m in memberGroup.memebers">
+                                            <label class="p-l-20 ng-binding ng-scope">
+                                                <input type="checkbox" class="md-checkbox checkitem"  ng-checked="m.inShop" ng-click="selectMember($event,m.id)" value="{{m.id}}" >
+                                                <span class="checkbox-material">
+                                                    <span class="check">
+
+                                                    </span>
+                                                </span>
+                                                {{m.email}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="memberName" style="width: 20%;">
+                                    <div ng-repeat="m in memberGroup.memebers">
+                                        {{m.name}}
+                                    </div>
+                                </td>
+                                <td class="memberMb" style="width: 20%;">
+                                    <div ng-repeat="m in memberGroup.memebers">
+                                        {{m.mobile}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer" style="clear:both">
+                    <button type="button" class="btn btn-primary btn-embossed" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-default" ng-click="taskSave()">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $('.nav-tabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    $('#addInst').on('show.bs.modal', function () {
+        $('#prodTabFirst').addClass('active').siblings().removeClass('active');
+        $('#PordleftRole').addClass('active');
+        $('#ProdrightRole').removeClass('active');
+    });
+</script>

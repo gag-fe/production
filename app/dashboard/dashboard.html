@@ -1,0 +1,82 @@
+<div class="row">
+    <ul class="nav nav-sidebar">
+        <!--<li ng-class="{ active  : isActive('/')}"><a href="#/"><i class="icon-home"></i><span>Dashboard</span></a></li>-->
+        <li class="nav-parent" ng-if='misMenu["10"]'>
+            <a href=""><i class="icon-screen-desktop"></i><span>系统管理</span><span class="fa arrow"></span></a>
+            <ul class="children collapse">
+                <li ng-if='misMenu["1001"]' ng-class="{ active  : isActive('/user-manage')}"><a href="#user-manage"> 账号管理</a></li>
+                <!-- 新加链接，3.16-zgw -->
+                <li ng-if='misMenu["1004"]' ng-class="{ active  : isActive('/com-manage')}"><a href="#com-manage"> 商户管理</a></li>
+                <li ng-if='misMenu["1002"]' ng-class="{ active  : isActive('/role-manage')}"><a href="#role-manage"> 角色管理</a></li>
+                <li ng-if='misMenu["1003"]' ng-class="{ active  : isActive('/sys-lib')}"><a href="#sys-lib"> 系统字典</a></li>
+            </ul>
+        </li>
+        <li class="nav-parent" ng-if='misMenu["11"]'>
+            <a href=""><i class="icon icons-text-hierarchy-01"></i><span>组织管理</span><span class="fa arrow"></span></a>
+            <ul class="children collapse">
+                <li ng-if='misMenu["1101"]' ng-class="{ active  : isActive('/organization')}"><a href="#organization"> 机构管理</a></li>
+                <li ng-if='misMenu["1102"]' ng-class="{ active  : isActive('/busi-manage')}"><a href="#busi-manage"> 商户管理</a></li>
+                <li ng-if='misMenu["1301"]' ng-class="{ active  : isActive('/merchant-relate')}"><a href="#merchant-relate"> 商户渠道关系维护</a></li>
+            </ul>
+        </li>
+        <li class="nav-parent" ng-if='misMenu["12"]'>
+            <a href=""><i class="icon-settings"></i><span>设备管理</span><span class="fa arrow"></span></a>
+            <ul class="children collapse">
+                <li ng-if='misMenu["1201"]' ng-class="{ active  : isActive('/device-info')}"><a href="#device-info"> 设备信息</a></li>
+                <li ng-if='misMenu["1202"]' ng-class="{ active  : isActive('/config-file')}"><a href="#config-file"> 配置文件</a></li>
+                <li ng-if='misMenu["1203"]' ng-class="{ active  : isActive('/config-command')}"><a href="#config-command"> 特殊指令管理</a></li>
+                <li ng-if='misMenu["1204"]' ng-class="{ active  : isActive('/news-push')}"><a href="#news-push"> 设备信息推送</a></li>
+            </ul>
+        </li>
+        <!-- <li class="nav-parent" ng-if='misMenu["13"]'>
+                        <a href=""><i class="icon-paper-clip"></i><span>商户配置</span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-if='misMenu["1301"]' ng-class="{ active  : isActive('/merchant-relate')}"><a href="#merchant-relate"> 商户渠道关系维护</a></li>
+                              <li ng-class="{ active  : isActive('/platform-config')}"><a href="#platform-config"> 第三方服务平台配置</a></li>
+                            <li ng-class="{ active  : isActive('/invoice-config')}"><a href="#invoice-config"> 发票内容配置</a></li>
+                            <li ng-class="{ active  : isActive('/invoice-device)}"><a href="#invoice-device"> 开发票设备关联</a></li>
+                            <li ng-class="{ active  : isActive('/pay-device')}"><a href="#pay-device"> 支付设备关联</a></li>
+                            <li ng-class="{ active  : isActive('/pay-acount')}"><a href="#pay-acount"> 支付账户配置</a></li>
+                            <li ng-class="{ active  : isActive('/pay-notice')}"><a href="#pay-notice"> 支付通知配置</a></li>
+                        </ul>
+                    </li> -->
+        <li class="nav-parent" ng-if='misMenu["14"]'>
+            <a href=""><i class="icon-notebook"></i><span>业务查询</span><span class="fa arrow"></span></a>
+            <ul class="children collapse">
+                <li ng-if='misMenu["1401"]' ng-class="{ active  : isActive('/systerminal-file')}"><a href="#systerminal-file"> 终端设备文件</a></li>
+                <li ng-if='misMenu["1402"]' ng-class="{ active  : isActive('/bill-record')}"><a href="#bill-record"> 账单信息</a></li>
+                <li ng-if='misMenu["1403"]' ng-class="{ active  : isActive('/day-bill')}"><a href="#day-bill"> 日结账单信息</a></li>
+                <!--  <li ng-class="{ active  : isActive('/pay-info')}"><a href="#pay-info"> 支付明细查询</a></li>
+                            <li ng-class="{ active  : isActive('/invoice-info')}"><a href="#invoice-info"> 发票申请打印明细</a></li> -->
+            </ul>
+        </li>
+        <li class="nav-parent" ng-if='misMenu["15"]'>
+            <a href=""><i class="icon-clock"></i><span>操作记录</span><span class="fa arrow"></span></a>
+            <ul class="children collapse">
+                <li ng-if='misMenu["1501"]' ng-class="{ active  : isActive('/consume-log')}"><a href="#consume-log"> 消费行为记录</a></li>
+                <li ng-if='misMenu["1502"]' ng-class="{ active  : isActive('/system-log')}"><a href="#system-log"> 系统操作记录</a></li>
+            </ul>
+        </li>
+        <!-- <li class="nav-parent">
+                        <a href=""><i class="icon-user"></i><span>User </span><span class="fa arrow"></span></a>
+                        <ul class="children collapse">
+                            <li ng-class="{ active  : isActive('/user-profile')}">
+                                <a href="#user-profile"> <span class="pull-right badge badge-danger">Hot</span> Profile</a>
+                            </li>
+                            <li ng-class="{ active  : isActive('/user-sessionTimeout')}"><a href="#user-sessionTimeout"> Session Timeout</a></li>
+                        </ul>
+                    </li> -->
+    </ul>
+</div>
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">&copy;</span> {{copyright}} </span>
+            <span>THEMES LAB</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+            <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+        </p>
+    </div>
+</div>

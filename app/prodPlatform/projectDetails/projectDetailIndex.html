@@ -1,0 +1,727 @@
+<style type="text/css">
+    .fixed-topbar .topbar {
+        left: 0;
+    }
+    .fixed-sidebar .sidebar {
+        display: none;
+    }
+    .main-content{
+        margin-left: 0;
+    }
+    .topbar .header-left .topnav .menutoggle{
+        display: none;
+    }
+    .theme-sdtl.color-default .sidebar{
+        display: none;
+    }
+    .bootstrap-table .table{
+        width: 100% !important;
+    }
+    .tab-content{
+        padding-left: 0px;
+        padding-right: 10px;
+    }
+    .projectDetails-h h2{
+        padding-top: 5px;
+    }
+    .form-input-sm{
+        width: 115px;
+    }
+    /*input number 去掉上下滚轮*/
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    .modal-content .modal-footer{
+        padding-top: 10px;
+    }
+    .projectDetails-h .info-count{
+        width: 100%;
+    }
+    .projectDetails-h .info-count span{
+        width: 10%;
+    }
+    .tabar .btn{
+        background-color: #fff !important;
+        color: #333 !important;
+    }
+    .btn:last-child {
+        border-left: 1px solid rgba(12, 12, 12, 0.1);
+    }
+    .tabar .tabarClick {
+        background: #f44336 !important;
+        color: #fff !important;
+    }
+    .tabar .btn:hover{
+        background: #f44336 !important;
+        color: #fff !important;
+    }
+</style>
+<div class="header clearfix projectDetails-h">
+    <div class="pull-left">
+        <h2>{{params.page.name}}</h2>
+    </div>
+    <div class="pull-right info-count">
+        <div style="margin-top: 8px;">
+            <span>商户数:{{params.page.total}}</span>
+            <span>整体进度:{{params.page.allProcess}}%</span>
+            <span>项目经理:{{params.page.projectManager}}</span>
+            <span>设备:{{params.page.allDeviceCount}}</span>
+            <span>软截:{{params.page.softDeviceCount}}</span>
+            <span>硬采:{{params.page.hardDeviceCount}}</span>
+            <span>转发器:{{params.page.transDeviceCount}}</span>
+            <span>已追码:{{params.page.printDeviceCount}}</span>
+        </div>
+    </div>
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li class="active">生产平台</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 portlets">
+        <div class="panel">
+            <div class="panel-content">
+                <form name="instSearchForm" novalidate class="form-horizontal">
+                    <div class="row m-t-10">
+                        <div class="form-group col-md-4">
+                            <div class="col-sm-4 control-label">期别</div>
+                            <div class="col-sm-4">
+                                <select class="form-control" ng-model="params.page.periods" ng-options="p as p for p in params.page.periodsList">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="col-sm-4 control-label">商户名称</div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" placeholder="请输入商户名称" ng-model="params.page.shopEntityName">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="col-sm-4 control-label">MAC地址</div>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" placeholder="请输入MAC地址" ng-model="params.page.mac">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix">
+                    <div class="clearfix">
+                        <div class="btn-group del-shadow text-right pull-right">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" ng-if="authority['5']" data-target="#prodShopInfo" ng-click="toobarEvent.add()"><i class="fa fa-plus"></i> 新增</button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" ng-if="authority['6']" data-target="#gave" ng-click="toobarEvent.gave()"><i class="mdi-communication-vpn-key"></i> 申领授权</button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#setting" ng-click="checkDevice();"><i class="glyphicon glyphicon-check"></i> 查看可用设备</button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" ng-if="authority['7']"  data-target="#import" ng-click="importModal()"><i class="mdi-file-cloud-upload"></i> 导入</button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" ng-if="authority['19']" data-target="#exportShopEntityInfo"><i class="mdi-file-file-download"></i> 导出</button>
+                            <button type="button" class="btn btn-danger" ng-if="authority['12']" ng-click="toobarEvent.toMall()"><i class="glyphicon glyphicon-paperclip"></i> MALL稽核</button>
+                            <button type="button" class="btn btn-danger" ng-if="authority['13']" ng-click="toobarEvent.toData()"><i class="glyphicon glyphicon-equalizer"></i> 数据图谱</button>
+                            <button type="button" class="btn btn-danger searchTabar" data-style="zoom-in" ng-if="authority['3']" ng-disabled="searchS" ng-click="toobarEvent.search('')"><i class="fa fa-search"></i> 查询</button>
+                        </div>
+                    </div>
+                    <!--<div class="btn-group text-right pull-left">
+
+                    </div>-->
+                    <div class="btn-group text-right pull-left tabar">
+                        <button type="button" class="btn btn-danger" ng-disabled="searchS" ng-click="toobarEvent.search('UnInstallDevice')">待安装:{{params.page.preInstall}}</button>
+                        <button type="button" class="btn btn-danger" ng-disabled="searchS" ng-click="toobarEvent.search('InstalledDevice')">已安装:{{params.page.installed}}</button>
+                        <button type="button" class="btn btn-danger" ng-disabled="searchS" ng-click="toobarEvent.search('ConfiguredDevice')">已配置:{{params.page.configured}}</button>
+                        <!--<button type="button" class="btn btn-danger" ng-disabled="searchS" ng-click="toobarEvent.search('Checked')">已核对:{{params.page.checked}}</button>-->
+                        <button type="button" class="btn btn-danger" ng-disabled="searchS" ng-click="toobarEvent.search('Serving')">已交付:{{params.page.delivered}}</button>
+                        <button type="button" class="btn btn-danger" ng-disabled="searchS" ng-click="toobarEvent.search('Stoped')">已停用:{{params.page.stoped}}</button>
+                        <button type="button" class="btn btn-danger" ng-disabled="searchS" ng-click="toobarEvent.search('Exited')">已撤店:{{params.page.closed}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-content pagination2 table-responsive items-table" id="projectTabCont">
+                <table id="projectTable" bs-table-control="projectControl" bs-table-params="projectTableConfig"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">&copy;</span> {{copyright}} </span>
+            <span>gooagoo.com</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+        </p>
+    </div>
+</div>
+<!-- 新增编辑对话框 -->
+<div class="modal fade" id="prodShopInfo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="form-horizontal  pos-rel" name="prodForm" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    <h4 class="modal-title"><strong>{{addOrEdit == 'add' ? '新增' : '编辑'}}</strong> </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <!--  Nav tabs -->
+                        <ul class="nav nav-tabs nav-justified" id ="pop-nav">
+                            <li role="presentation" id="prodTabFirst" class="active"><a href="#PordleftRole" id="ProdTabOne" aria-controls="home" role="tab" data-toggle="tab">基础信息</a></li>
+                            <li role="presentation" ><a href="#ProdrightRole" aria-controls="profile" role="tab" data-toggle="tab">环境信息</a></li>
+                            <li role="presentation" ><a href="#businessInfo" aria-controls="profile" role="tab" data-toggle="tab">营业信息</a></li>
+                            <li role="presentation" ><a href="#qrCode" aria-controls="profile" role="tab" data-toggle="tab">二维码配置</a></li>
+                        </ul>
+                        <div class="tab-content rol-tabs-content ov-hidden p-t-30">
+                            <!-- tab第一栏 -->
+                            <div role="tabpanel" class="tab-pane active" id="PordleftRole" >
+                                <div class="tab-content rol-tabs-content  p-t-30">
+                                    <div role="tabpanel" class="tab-pane active">
+                                        <div class="form-group row">
+                                            <div class="col-xs-2 control-label"> <span class="font_red">*</span>商户名称</div>
+                                            <div class="col-xs-4">
+                                                <input type="text" class="form-control" name="prodShopName" ng-model="params.modal.shopInfo.selected.shopEntityName" placeholder="请输入商户名称，支持30个字符" maxlength="30" >
+                                                <div class="font_red font_sizes" ng-show="params.modal.shopInfo.selected.shopEntityName.length == 0">请输入商户名称</div>
+                                            </div>
+                                            <div class="col-xs-2  control-label">隶属分期</div>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" data-style="white"  ng-model="params.modal.shopInfo.selected.periods" ng-options="p as p for p in params.page.periodsList">
+                                                    <option value="">请选择分期</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="form-group row">
+                                                <div class="col-xs-2  control-label f-left">商户属性</div>
+                                                <div class="col-xs-8 p-t-10">
+                                                    <div class="checkbox checkbox-primary p-t-0  f-left">
+                                                        <label class="p-l-20">
+                                                            <input class="roleRadio md-checkbox" type="checkbox" ng-checked="ischeckDuty('1')" ng-click="selectDuty('1',$event)">
+                                                            手机上报商户
+                                                        </label>
+                                                        <label class="p-l-20">
+                                                            <input class="roleRadio md-checkbox" type="checkbox" ng-checked="ischeckDuty('2')" ng-click="selectDuty('2',$event)">
+                                                            合作社商户
+                                                        </label>
+                                                        <label class="p-l-20">
+                                                            <input class="roleRadio md-checkbox" type="checkbox" ng-checked="ischeckDuty('3')" ng-click="selectDuty('3',$event)">
+                                                            发票商户
+                                                        </label>
+                                                        <label class="p-l-20">
+                                                            <input class="roleRadio md-checkbox" type="checkbox" ng-checked="ischeckDuty('4')" ng-click="selectDuty('4',$event)">
+                                                            普通采集用户
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xs-2  control-label"><span class="font_red">*</span>营业时间</div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" name="prodOpen" ng-pattern="/^([0-9]|0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$/" ng-model="params.modal.shopInfo.selected.openTime" placeholder="请输入开始时间" >
+                                                <div class="font_red font_sizes" ng-show="(params.modal.shopInfo.selected.openTime.length == 0) || (params.modal.shopInfo.selected.closeTime.length == 0)">请输入营业时间</div>
+                                                <div class="font_red font_sizes" ng-show="(prodForm.prodOpen.$invalid && params.modal.shopInfo.selected.openTime.length != 0) || (prodForm.prodClose.$invalid && params.modal.shopInfo.selected.closeTime.length != 0)">格式要求：09:11</div>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" name="prodClose" ng-pattern="/^([0-9]|0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1})$/" ng-model="params.modal.shopInfo.selected.closeTime"  placeholder="请输入结束时间" >
+                                            </div>
+                                            <div class="col-xs-2  control-label">商户电话</div>
+                                            <div class="col-xs-4">
+                                                <input type="text" class="form-control" name="prodPhone" placeholder="请输入商户电话" ng-pattern="/^(\d{3,4}-?)?\d{7,8}$/" ng-model="params.modal.shopInfo.selected.phone">
+                                                <div class="font_red font_sizes" ng-show="prodForm.prodPhone.$invalid">请输入格式要求：11手机号或xxx-xxxxxxxx</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xs-2  control-label">区域</div>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" data-style="white" ng-model="params.modal.shopInfo.selected.inAera" ng-options="a as a for a in params.modal.shopInfo.data.areaDivision">
+                                                    <option value="">请选择区域</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-2  control-label"><span class="font_red">*</span>楼层</div>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" data-style="white" ng-model="params.modal.shopInfo.selected.storey" ng-options="a as a for a in params.modal.shopInfo.data.floorDivision">
+                                                    <option value="">请选择楼层</option>
+                                                </select>
+                                                <div class="font_red font_sizes" ng-show="!params.modal.shopInfo.selected.storey">请选择楼层</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xs-2  control-label">商户编号</div>
+                                            <div class="col-xs-4">
+                                                <input type="text" class="form-control" placeholder="请输入商户编号，支持20个字符" maxlength="20" ng-model="params.modal.shopInfo.selected.leasingResource">
+                                            </div>
+                                            <div class="col-xs-2  control-label">店铺面积</div>
+                                            <div class="col-xs-4">
+                                                <input type="text" class="form-control" name="prodContractArea" placeholder="店铺面积，大于0小于9999的数字" ng-model="params.modal.shopInfo.selected.contractArea" ng-pattern="/^(([0-9]\d{0,6})|0)(\.\d{0,2})?$/">
+                                                <div class="font_red font_sizes" ng-show="(prodForm.prodContractArea.$invalid) || (params.modal.shopInfo.selected.contractArea >9999 || params.modal.shopInfo.selected.contractArea < 0)">请输入0-9999以内的数字,保留小数点后两位数字！</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xs-2  control-label"><span class="font_red">*</span>一级业态</div>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" data-style="white" ng-model="params.modal.shopInfo.selected.shopEntityTypeRoot" ng-change="getShopTypesLeaf()" ng-options="r.id as r.shopTypeName for r in params.modal.shopInfo.data.shopTypesRoot">
+                                                    <option value="">请选择一级业态</option>
+                                                </select>
+                                                <div class="font_red font_sizes" ng-show="!params.modal.shopInfo.selected.shopEntityTypeRoot">请选择一级业态</div>
+                                            </div>
+                                            <div class="col-xs-2  control-label"><span class="font_red">*</span>二级业态</div>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" data-style="white" ng-model="params.modal.shopInfo.selected.shopEntityTypeLeaf" ng-options="l.id as l.shopTypeName for l in params.modal.shopInfo.data.shopTypesLeaf">
+                                                    <option value="">请选择二级业态</option>
+                                                </select>
+                                                <div class="font_red font_sizes" ng-show="!params.modal.shopInfo.selected.shopEntityTypeLeaf">请选择二级业态</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xs-4" style="max-height: 140px;overflow-y: auto;">
+                                                <div class="row" style="padding-bottom: 10px;" ng-repeat="m in params.modal.shopInfo.selected.softMac track by $index">
+                                                    <div class="col-xs-5" style="padding-top: 6px;text-align: right;"><i class="glyphicon glyphicon-minus-sign" ng-show="$index != 0" ng-click="delMac('softMac',$index)"></i>软截MAC</div>
+                                                    <div class="col-xs-6" style="padding-left: 0"><input type="text" name="softMac" class="form-control" placeholder="请输入软截MAC编号" value="{{m}}" ng-keyup="changeValue('softMac',$index,$event)"></div>
+                                                    <div class="col-xs-1" style="padding-left: 0;padding-right: 0;padding-top: 5px;"><i class="glyphicon glyphicon-plus-sign" ng-click="addMac('softMac')"></i></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4" style="max-height: 140px;overflow-y: auto;">
+                                                <div class="row" style="padding-bottom: 10px;" ng-repeat="m in params.modal.shopInfo.selected.hardwareMac track by $index">
+                                                    <div class="col-xs-5" style="padding-top: 6px;text-align: right;"><i class="glyphicon glyphicon-minus-sign" ng-show="$index != 0" ng-click="delMac('hardwareMac',$index)"></i>硬件MAC</div>
+                                                    <div class="col-xs-6" style="padding-left: 0"><input type="text" class="form-control" placeholder="请输入硬件MAC编号" value="{{m}}" ng-keyup="changeValue('hardwareMac',$index,$event)"></div>
+                                                    <div class="col-xs-1" style="padding-left: 0;padding-right: 0;padding-top: 5px;"><i class="glyphicon glyphicon-plus-sign" ng-click="addMac('hardwareMac')"></i></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4" style="max-height: 140px;overflow-y: auto;">
+                                                <div class="row" style="padding-bottom: 10px;" ng-repeat="m in params.modal.shopInfo.selected.redirectMac track by $index">
+                                                    <div class="col-xs-5" style="padding-top: 6px;padding-left: 0;text-align: right;"><i class="glyphicon glyphicon-minus-sign" ng-show="$index != 0" ng-click="delMac('redirectMac',$index)"></i>转发器MAC</div>
+                                                    <div class="col-xs-6" style="padding-left: 0"><input type="text" class="form-control" placeholder="请输入转发器MAC编号" value="{{m}}" ng-keyup="changeValue('redirectMac',$index,$event)"></div>
+                                                    <div class="col-xs-1" style="padding-left: 0;padding-right: 0;padding-top: 5px;"><i class="glyphicon glyphicon-plus-sign" ng-click="addMac('redirectMac')"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- tab第二栏 -->
+                            <div role="tabpane1" class="tab-pane" id="ProdrightRole">
+                                <div  class="tab-content rol-tabs-content  p-t-30">
+
+                                    <div class="form-group row">
+                                        <div class="col-xs-2">收银软件名称</div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control" placeholder="请输入收银软件名称" ng-model="params.modal.shopInfo.selected.checkoutSoftName">
+                                        </div>
+                                        <div class="col-xs-2">操作系统</div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control" placeholder="请输入操作系统" ng-model="params.modal.shopInfo.selected.operateSystem">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-xs-2">打印机型号</div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control" placeholder="请输入打印机型号" ng-model="params.modal.shopInfo.selected.printModel">
+                                        </div>
+                                        <div class="col-xs-2">打印机品牌</div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control" placeholder="请输入打印机品牌" ng-model="params.modal.shopInfo.selected.printBrand">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-xs-2">销售小票打印机数量</div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  placeholder="请输入打印机数量" ng-model="params.modal.shopInfo.selected.printCount">
+                                        </div>
+                                        <div class="col-xs-3">是否正常打印小票</div>
+                                        <div class="col-xs-3">
+                                            <label>
+                                                <input type="radio" name="print" class="form-control" value="Y" checked="checked">是
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="print" class="form-control" value="N">否
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-xs-2">电脑连接打印机接口</div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control" placeholder="请输入打印机接口" ng-model="params.modal.shopInfo.selected.printInterface">
+                                        </div>
+                                        <div class="col-xs-3">收银电脑外网连接情况</div>
+                                        <div class="col-xs-3">
+                                            <label>
+                                                <input type="radio" name="pcNet" class="form-control" value="Y" checked="checked">有外网
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="pcNet" class="form-control" value="N">无外网
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-xs-2">收银机数量</div>
+                                        <div class="col-xs-4">
+                                            <input type="text" class="form-control" placeholder="请输入收银机数量" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"   ng-model="params.modal.shopInfo.selected.checkoutNum">
+                                        </div>
+                                    </div>
+
+                                    <fieldset>
+                                        <legend>实施评估</legend>
+                                        <div class="form-group row">
+                                            <div class="col-xs-1">适合安装</div>
+                                            <div class="col-xs-3">
+                                                <input type="text" class="form-control" ng-model="params.modal.shopInfo.selected.isInstall">
+                                            </div>
+                                            <div class="col-xs-1">版本</div>
+                                            <div class="col-xs-3">
+                                                <input type="text" class="form-control" ng-model="params.modal.shopInfo.selected.version">
+                                            </div>
+                                            <div class="col-xs-1">数量</div>
+                                            <div class="col-xs-3">
+                                                <input type="text" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')"  ng-model="params.modal.shopInfo.selected.count">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <!-- tab第三栏 -->
+                            <div role="tabpane1" class="tab-pane" id="businessInfo">
+                                <div class="tab-content rol-tabs-content  p-t-30">
+                                    <div role="tabpanel" class="tab-pane active">
+                                        <div class="form-group row">
+                                            <div class="col-xs-2 control-label">营业执照号码</div>
+                                            <div class="col-xs-4">
+                                                <input type="text" class="form-control" ng-model="params.modal.shopInfo.selected.numberId" placeholder="请输入营业执照号码" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-2 control-label">法人代表</div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" ng-model="params.modal.shopInfo.selected.representative" placeholder="请输入法人代表" >
+                                            </div>
+                                            <div class="col-xs-2 control-label">身份证号</div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" ng-model="params.modal.shopInfo.selected.representativeCardId" placeholder="请输入身份证号" >
+                                            </div>
+                                            <div class="col-xs-2 control-label">联系电话</div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" name="representativePhone" ng-model="params.modal.shopInfo.selected.representativePhone" ng-pattern="/^(\d{3,4}-?)?\d{7,8}$/" placeholder="请输入联系电话" >
+                                                <div class="font_red font_sizes" ng-show="prodForm.representativePhone.$invalid">请输入格式要求：11手机号或xxx-xxxxxxxx</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xs-2 control-label">店面负责人</div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" ng-model="params.modal.shopInfo.selected.shopManager" placeholder="请输入店面负责人" >
+                                            </div>
+                                            <div class="col-xs-2 control-label">身份证号</div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" ng-model="params.modal.shopInfo.selected.shopManagerCardId" placeholder="请输入身份证号" >
+                                            </div>
+                                            <div class="col-xs-2 control-label">联系电话</div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" name="shopManagerPhone" ng-model="params.modal.shopInfo.selected.shopManagerPhone" ng-pattern="/^(\d{3,4}-?)?\d{7,8}$/" placeholder="请输入联系电话" >
+                                                <div class="font_red font_sizes" ng-show="prodForm.shopManagerPhone.$invalid">请输入格式要求：11手机号或xxx-xxxxxxxx</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xs-2 control-label">发展人</div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" ng-model="params.modal.shopInfo.selected.devPerson" placeholder="请输入发展人" >
+                                            </div>
+                                            <div class="col-xs-2 control-label">联系电话</div>
+                                            <div class="col-xs-2">
+                                                <input type="text" class="form-control" name="devPhone" ng-model="params.modal.shopInfo.selected.devPhone" ng-pattern="/^(\d{3,4}-?)?\d{7,8}$/" placeholder="请输入联系电话" >
+                                                <div class="font_red font_sizes" ng-show="prodForm.devPhone.$invalid">请输入格式要求：11手机号或xxx-xxxxxxxx</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- tab第四栏 -->
+                            <div role="tabpanel" class="tab-pane" id="qrCode" style="padding-top: 30px;">
+                                <div class="row form-group">
+                                    <div class="col-xs-2 control-label">二维码上方文字</div>
+                                    <div class="col-xs-8">
+                                        <input class="form-control" maxlength="100" placeholder="小票追打文案，位于二维码上方，支持0-100个字符" data-ng-trim="false" ng-model="params.modal.shopInfo.selected.billhint"></input>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-xs-2 control-label">追打图片</div>
+                                    <div class="col-xs-6 pointer">
+                                        <div style="border:1px solid #ddd; margin-right:15px;">
+                                            <div class="box-limit" style="position: relative;">
+                                                <img src="{{params.modal.shopInfo.selected.marketingImage}}" ng-show="params.modal.shopInfo.selected.marketingImage" id="markImg"></img>
+                                                <i class="glyphicon glyphicon-remove" style="position: absolute;top: 0;right: 0;z-index: 2" ng-click="removeImg('marketingImage')"></i>
+                                            </div>
+                                            <div class="picload" ngf-select ng-model="params.modal.shopInfo.selected.fileImage" ng-change="imgUpload('marketingImage')">上传</div>
+                                        </div>
+                                        <span>支持jpg、png、bmp格式，大小不超过500k</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-2 control-label">追打固定文字</div>
+                                    <div class="col-xs-8">
+                                        <input class="form-control" maxlength="100" placeholder="小票追打文案，位于二维码下方，支持0-100个字符" data-ng-trim="false" ng-model="params.modal.shopInfo.selected.marketingCopywriter"></input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-embossed" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ng-click="shopInfoSave()" ng-disabled="(params.modal.shopInfo.selected.shopEntityName.length == 0) || (params.modal.shopInfo.selected.openTime.length == 0) || (params.modal.shopInfo.selected.closeTime.length == 0) || (prodForm.prodOpen.$invalid && params.modal.shopInfo.selected.openTime.length != 0) || (prodForm.prodClose.$invalid && params.modal.shopInfo.selected.closeTime.length != 0) || (prodForm.prodContractArea.$invalid) || (params.modal.shopInfo.selected.contractArea >9999 || params.modal.shopInfo.selected.contractArea < 0) || (prodForm.representativePhone.$invalid) || (prodForm.shopManagerPhone.$invalid) || (prodForm.devPhone.$invalid) || (!params.modal.shopInfo.selected.shopEntityTypeRoot) || (!params.modal.shopInfo.selected.shopEntityTypeLeaf) || (!params.modal.shopInfo.selected.storey)">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 导入对话框 -->
+<div class="modal fade" id="import" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="importDeviceForm" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    <h4 class="modal-title"><strong>导入商户</strong> </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group col-md-12">
+                        <div class="control-label">请选择导入文件</div>
+                        <div class="file">
+                            <div class="option-group">
+                                <div class="file-button btn-primary" style="cursor: pointer;" ngf-select ng-model="fileShopEntity" onchange="document.getElementById('pathShopEntity').value = this.value;document.getElementById('importError').innerHTML='';">浏览</div>
+                                <input type="text" class="form-control" id="pathShopEntity" placeholder="未选择文件" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="col-sm-12 text-center"><a ng-click="downLoadDemo(1)" href="javascript:">点击下载普通导入模板</a></div>
+                        <div class="col-sm-12 text-center"><a ng-click="downLoadDemo(2)" href="javascript:">点击下载银商导入模板</a></div>
+                    </div>
+                    <div class="form-group col-md-12" ng-if="importSuccess">
+                        <div>{{importSuccessInfo}}</div>
+                    </div>
+                    <div class="form-group col-md-12" ng-if="importSuccess || importStart">
+                        <div class="col-sm-12">
+                            <uib-progressbar class="progress-striped active" value="importProgress" type="success" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="word-break:break-all;max-height:100px;overflow:auto;" id="importError" ng-if="!importSuccess">
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer clearfix">
+                <button type="button" class="btn btn-default btn-embossed pull-right" ng-click="importUpdate(2)">银商导入</button>
+                <button type="button" class="btn btn-default btn-embossed pull-right" style="margin-right: 10px" ng-click="importUpdate(1)">普通导入</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 设备申领对话框 -->
+<div class="modal fade" id="gave" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="gaveForm" class="form-horizontal" id="gaveForm" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    <h4 class="modal-title"><strong>申领授权</strong> </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-2 form-text">设备类型</div>
+                        <div class="col-sm-1 form-text form-input-sm" style="word-break:break-all;">
+                            <input type="radio" class="form-control" checked="checked" ng-model="params.modal.gave.selected.deviceType">软截
+                        </div>
+                        <div class="col-sm-3 form-text">授权开头编码</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" disabled="disabled" ng-model="params.modal.gave.selected.previous">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 form-text">授权用途</div>
+                        <div class="col-sm-3 form-text form-input-sm" style="word-break:break-all;">
+                            <input type="radio" class="form-control" checked="checked" ng-model="params.modal.gave.selected.userBy">数据采集
+                        </div>
+                        <div class="col-sm-3 form-text"><span class="font_red">*</span>申领数量</div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="单次申领数量不得大于1000" ng-keyup="testNum()" ng-model="params.modal.gave.selected.total" name="applyNumber">
+                            <div class="font_red font_sizes" ng-show="params.modal.gave.selected.total.length == 0">请输入申请数量</div>
+                            <div class="font_red font_sizes" ng-show="params.modal.gave.selected.total > 1000 && params.modal.gave.selected.total.length != 0">申请数量不得大于1000</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-embossed" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-default btn-embossed" data-dismiss="modal" ng-disabled="params.modal.gave.selected.total.length == 0 || params.modal.gave.selected.total == 0 || params.modal.gave.selected.total > 1000" ng-click="gaveSave()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 配置对话框 -->
+<div class="modal fade" id="setting" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form novalidate class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                    <h4 class="modal-title"><strong>设备状态</strong></h4>
+                </div>
+                <div class="modal-body" style="padding-bottom: 0;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%">类型</th>
+                                <th style="width: 40%">MAC</th>
+                                <th style="width: 15%">设备状态</th>
+                                <th style="width: 10%">配置状态</th>
+                                <th style="width: 15%">追码类型</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="mac in params.modal.deviceStatus.data.macList">
+                                <td style="width: 15%">{{mac.name}}</td>
+                                <td style="width: 45%">
+                                    <div style="height: 34px;line-height: 34px" ng-repeat="m in mac.list">
+                                        {{m.id}}
+                                    </div>
+                                </td>
+                                <td style="width: 10%">
+                                    <div style="height: 34px;line-height: 34px" ng-repeat="m in mac.list">
+                                        <select class="form-control" ng-model="m.status" ng-disabled="!authority['9'] || isVirtual == 'Y'" ng-change="changeDeviceStatus(m.id,m.printQRCodeType,m.status)">
+                                            <option value="0">在用</option>
+                                            <option value="1">停用</option>
+                                            <option disabled value="2">损坏</option>
+                                            <option disabled value="3">在库</option>
+                                            <option disabled value="4">出库</option>
+                                            <option disabled value="5">试运行</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="width: 10%">
+                                    <div style="height: 34px;line-height: 34px" ng-repeat="m in mac.list">
+                                        {{m.hasFile ? '已配置' : '未配置'}}
+                                    </div>
+                                </td>
+                                <td style="width: 10%">
+                                    <div style="height: 34px;line-height: 34px" ng-repeat="m in mac.list">
+                                        <select class="form-control" ng-model="m.printQRCodeType" ng-disabled="!authority['9'] || isVirtual == 'Y'" ng-change="changeDeviceStatus(m.id,m.printQRCodeType,m.status)">
+                                            <option value="notPrint">未追码</option>
+                                            <option value="pay">支付</option>
+                                            <option value="integral">积分</option>
+                                            <option value="pagAndIntegral">积分&支付</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="font_red font_sizes" style="text-align: center;line-height: 1.5em;height: 18px;">{{resmsg}}</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 设置备注对话框 -->
+<div class="modal fade" id="setMarks" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                <h4 class="modal-title"><strong>设置备注</strong> </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group row" style="padding-top: 4px;" ng-show="params.modal.setMarks.selected.process == 'ConfiguredDevice'">
+                            <div class="col-sm-3 form-text">备注类型</div>
+                            <div class="col-sm-6">
+                                <select class="form-control" ng-model="params.modal.setMarks.selected.problemType">
+                                    <option value="Normal">数据准确</option>
+                                    <option value="AbNormalBySelf">数据不准确,购阿购的问题</option>
+                                    <option value="AbNormalByShop">数据不准确,商户的问题</option>
+                                    <option value="Unknow">未明确原因</option>
+                                    <option ng-hide="params.modal.setMarks.selected.process == 'ConfiguredDevice'" value="Other">其他问题</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="padding-top: 12px;">
+                            <div class="col-sm-3">备注信息</div>
+                            <div class="col-sm-9">
+                                <textarea cols="35" rows="15" maxlength="300" ng-model="params.modal.setMarks.selected.problemText"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="max-height: 300px;overflow-x: hidden;overflow-y: auto">
+                        <div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td style="width: 20%;">商户状态</td>
+                                    <td style="width: 80%;">商户备注</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="word-break: break-all;" ng-repeat="mark in params.modal.markHistory.marks">
+                                    <td style="width: 20%;">{{mark.process}}</td>
+                                    <td style="width: 80%;">{{mark.problemText}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-embossed" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-default btn-embossed" ng-click="saveMark()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 导出对话框 -->
+<div class="modal fade" id="exportShopEntityInfo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>
+                <h4 class="modal-title"><strong>导出</strong> </h4>
+            </div>
+            <div class="modal-footer clearfix">
+                <button type="button" class="btn btn-default btn-embossed pull-right" ng-click="exportShopEntityInfo(3)">实施进度跟踪表导出</button>
+                <button type="button" class="btn btn-default btn-embossed pull-right" style="margin-right: 10px" ng-click="exportShopEntityInfo(2)">银商导出</button>
+                <button type="button" class="btn btn-default btn-embossed pull-right" style="margin-right: 10px" ng-click="exportShopEntityInfo(1)">普通导出</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.nav-tabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    $('#prodShopInfo').on('show.bs.modal', function () {
+        $('#prodTabFirst').addClass('active').siblings().removeClass('active');
+        $('#PordleftRole').addClass('active');
+        $('#ProdrightRole').removeClass('active');
+        $('#businessInfo').removeClass('active');
+        $('#qrCode').removeClass('active');
+    });
+    $('.tabar').on('click',function (e) {
+        $(e.target).addClass('tabarClick').siblings().removeClass('tabarClick');
+    });
+</script>
